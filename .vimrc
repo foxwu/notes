@@ -10,9 +10,10 @@ set paste
 filetype on
 filetype indent on
 filetype plugin on
-syntax on
 highlight Comment ctermfg=darkcyan
 highlight Search term=reverse ctermbg=4 ctermfg=7
 set expandtab
 set softtabstop=4
 set ruler
+syntax on
+set background=dark
