@@ -22,9 +22,8 @@ git grep --cached -Il '' | while read line; do echo "\"$line\""; done|xargs cat|
 ## (On MacOS)  
 brew install cloc  
 cloc <dir>  
-
-#Script used by Data Team (doesn't work for binaries), pass full repo name on command line, outputs  
-# on last 3 lines.  2016 count/2017 count/added and deleted.   
+  
+# outputs on last 3 lines.  2016 count/2017 count/added and deleted.   
 Cloning into 'tmp-dir'...  
 Enter passphrase for key '/Users/mpippin/.ssh/id_rsa':   
 remote: Counting objects: 3033, done.  
