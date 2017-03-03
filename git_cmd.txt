@@ -1,0 +1,54 @@
+# git rebase
+git rebase -i xxxxxx
+git push origin xxxxxx --force
+
+# Clone the repo  
+git clone git@git.corp.yahoo.com:ads-data/yamplus_api.git  
+cd yamplus_api  
+
+# Checkout the branch at the right revision:  
+git checkout $(git rev-list --before="2017-01-01" master -n1)  
+
+# Lines added/deleted (repo must exist prior to 2016-01-01, otherwise added=2017 count, deleted=0):  
+git diff --numstat $(git rev-list -n1 --before="2016-01-01" master) $(git rev-list -n1 --before="2017-01-01" master) | awk '{ if($1>0) { a+=$1 } if($2>0) { d+=$2 } } END { print "Added:    " a; print "Deleted:  " d }'  
+
+# Total number of lines (binaries removed)  
+git grep --cached -Il '' | xargs cat | wc -l  
+
+# Total number of lines (binaries and white lines removed)  
+git grep --cached -Il '' | while read line; do echo "\"$line\""; done|xargs cat| grep -v '^\s*$' | wc -l  
+
+## wc is not accurate, to get a accurate count of each file, use cloc (CLOC -- Count Lines of Code)  
+## (On MacOS)  
+brew install cloc  
+cloc <dir>  
+
+#Script used by Data Team (doesn't work for binaries), pass full repo name on command line, outputs  
+# on last 3 lines.  2016 count/2017 count/added and deleted.   
+Cloning into 'tmp-dir'...  
+Enter passphrase for key '/Users/mpippin/.ssh/id_rsa':   
+remote: Counting objects: 3033, done.  
+remote: Total 3033 (delta 0), reused 0 (delta 0), pack-reused 3033  
+Receiving objects: 100% (3033/3033), 5.08 MiB | 4.40 MiB/s, done.  
+  Resolving deltas: 100% (1587/1587), done.  
+  114 files changed, 11771 insertions(+)  
+  118 files changed, 10881 insertions(+)  
+66 files changed, 1008 insertions(+), 1898 deletions(-)  
+  --- BEGIN SCRIPT ---  
+#!/bin/bash  
+  rm -rf tmp-dir  
+  git clone $1 tmp-dir  
+  cd tmp-dir  
+  START=`git hash-object -t tree /dev/null`  
+  FIRST=`git rev-list -n1 --before="2016-01-01" master`  
+  if [ -z $FIRST ]; then  
+  FIRST=$START  
+  fi  
+  LAST=`git rev-list -n1 --before="2017-01-01" master`  
+  if [ -z $LAST ]; then  
+  LAST=$START  
+  fi  
+  git diff --shortstat $START $FIRST  
+  git diff --shortstat $START $LAST  
+  git diff --shortstat $FIRST $LAST  
+  --- END SCRIPT ---  
