@@ -24,8 +24,8 @@ brew install cloc
 cloc <dir>  
   
 # outputs on last 3 lines.  2016 count/2017 count/added and deleted.   
-Cloning into 'tmp-dir'...  
-Enter passphrase for key '/Users/mpippin/.ssh/id_rsa':   
+Cloning into 'notes'...  
+Enter passphrase for key '/Users/foxwu/.ssh/id_rsa':   
 remote: Counting objects: 3033, done.  
 remote: Total 3033 (delta 0), reused 0 (delta 0), pack-reused 3033  
 Receiving objects: 100% (3033/3033), 5.08 MiB | 4.40 MiB/s, done.  
