@@ -3,8 +3,8 @@ git rebase -i xxxxxx
 git push origin xxxxxx --force
 
 # Clone the repo  
-git clone git@git.corp.yahoo.com:ads-data/yamplus_api.git  
-cd yamplus_api  
+git clone git@github.com:foxwu/notes.git  
+cd notes  
 
 # Checkout the branch at the right revision:  
 git checkout $(git rev-list --before="2017-01-01" master -n1)  
